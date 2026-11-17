@@ -1,5 +1,7 @@
 # Provably Fair Jieqi · 可验证公平的在线揭棋
 
+**[English](README_EN.md)** | 中文
+
 基于 Web 的双人中国象棋揭棋（Dark Chess）对战平台。核心卖点：**公平性不需要信任服务器**——密码学承诺方案 + 三方熵源 + 跨语言确定性洗牌，局后任何人在浏览器里就能独立验证整局发牌没有被操控。
 
 ![对局界面](docs/images/board-preview.png)
@@ -75,11 +77,11 @@ npm run dev        # http://localhost:7100 ，/ws 已代理到 :8000
 ## 测试与验证
 
 ```bash
-# 单元测试（27 个：洗牌一致性/防篡改 + 全部揭棋特殊规则）
+# 单元测试（35 个：洗牌一致性/防篡改 + 全部揭棋特殊规则与将军裁决）
 cd backend && pytest -q
 
-# 端到端冒烟（真实 WebSocket 双客户端打一局，断言信息隔离与协议时序）
-uvicorn app.main:app --port 8000 &
+# 端到端冒烟（双场景：commit-reveal 正常流 + 拒揭示超时判负）
+JIEQI_REVEAL_TIMEOUT=3 uvicorn app.main:app --port 8000 &
 python tests/e2e_smoke.py
 
 # 跨语言一致性（JS 洗牌 vs Python 生成的共享向量）
