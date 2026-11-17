@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-slate-900 text-slate-100 min-h-screen;
+}
+
+/* ---- jieqi board pieces -------------------------------------------------- */
+.jq-hit {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.jq-hit:disabled {
+  cursor: default;
+}
+
+.jq-piece {
+  width: 46px;
+  height: 46px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 35% 30%, #fdf0d0, #f3ddab 55%, #e4c481);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 2px #a97e3f,
+    inset 0 0 0 4px #f8ecc9,
+    inset 0 0 0 5px rgba(169, 126, 63, 0.65);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.jq-hit:not(:disabled):hover .jq-piece {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 10px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 2px #a97e3f,
+    inset 0 0 0 4px #f8ecc9,
+    inset 0 0 0 5px rgba(169, 126, 63, 0.65);
+}
+
+.jq-glyph,
+.jq-dark-glyph {
+  font-family: "Kaiti SC", "STKaiti", "KaiTi", "楷体", serif;
+  font-weight: 700;
+  line-height: 1;
+}
+.jq-glyph {
+  font-size: 27px;
+}
+.jq-red .jq-glyph {
+  color: #bd1919;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5), 0 0 2px rgba(160, 0, 0, 0.35);
+}
+.jq-black .jq-glyph {
+  color: #26221d;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* dark (face-down) pieces: wooden back, rim tinted by home half */
+.jq-dark-red,
+.jq-dark-black {
+  background:
+    repeating-radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.12) 0 2px, transparent 2px 6px),
+    radial-gradient(circle at 40% 35%, #96683a, #7a4f24 60%, #65401c);
+}
+.jq-dark-red {
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 2px #d4453a,
+    inset 0 0 0 4px rgba(120, 60, 25, 0.9),
+    inset 0 0 0 5px rgba(212, 69, 58, 0.5);
+}
+.jq-dark-black {
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 2px #3f3a33,
+    inset 0 0 0 4px rgba(120, 60, 25, 0.9),
+    inset 0 0 0 5px rgba(40, 36, 30, 0.55);
+}
+.jq-dark-glyph {
+  font-size: 24px;
+  color: rgba(255, 232, 196, 0.55);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+/* interaction states */
+.jq-selected {
+  outline: 3px solid #fbbf24;
+  outline-offset: 2px;
+  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.85));
+}
+.jq-capturable {
+  outline: 3px solid rgba(5, 150, 105, 0.9);
+  outline-offset: 2px;
+}
+.jq-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: rgba(4, 120, 87, 0.85);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
+}
+.jq-lastmove {
+  position: absolute;
+  inset: 3px;
+  border: 2px solid rgba(180, 83, 9, 0.55);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+/* captured-pieces panel chips */
+.jq-chip {
+  width: 30px;
+  height: 30px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Kaiti SC", "STKaiti", "KaiTi", "楷体", serif;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1;
+  background: radial-gradient(circle at 35% 30%, #fdf0d0, #f3ddab 55%, #e4c481);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4), inset 0 0 0 1.5px #a97e3f;
+}
+.jq-chip-red {
+  color: #bd1919;
+}
+.jq-chip-black {
+  color: #26221d;
+}
